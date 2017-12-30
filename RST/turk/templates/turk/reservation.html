@@ -1,0 +1,43 @@
+{% extends 'turk/header.html' %}
+
+{% block body %}
+<div class="page-header">
+  <h1 class="text-center"> Reservation </h1>
+</div>
+
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-1">
+            {% include 'turk/form-template2.html' %}
+        </div>
+    </div>
+
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+<!--Show after submit valid info-->
+{% if reservation_id %}
+    <div class="form-group col-md-4 col-md-offset-4">
+        <p class="text-primary text-center"><small>Please record down your passenger id and reservation id. It will be needed if you want to cancel or rebook your trip</small></p>
+        <h3 class="text-center">This is your Ticket Info</h3>
+        <h5 class="text-center"> Your unique passenger ID: {{passenger_id}}</h5>
+        <h5 class="text-center"> Your unique reservation ID: {{reservation_id}}</h5>
+        <h5 class="text-center"> Train Time: {{stop.time_in}}</h5>
+        <h5 class="text-center"> Station: {{stop.station}}</h5>
+    </div>
+{% endif %}
+
+{% endblock %}

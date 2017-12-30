@@ -1,0 +1,80 @@
+{% extends 'turk/header.html' %}
+
+{% block body %}
+<div class="page-header">
+  <h1 class="text-center"> Choose Your Itinerary and Time </h1>
+</div>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <label class="control-label col-sm-2" for="days">Day:</label>
+        <div class="col-md-4 col-md-offset-1">
+            <select class="form-control" id="days" name="day">
+                <option value="weekday">Weekday</option>
+                <option value="weekend">Weekend</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <label class="control-label col-sm-2" for="station">From:</label>
+        <div class="col-md-4 col-md-offset-1">
+            <select class="form-control" id="station" name="station">
+                {% for station in all_stations %}
+                    <option value={{station.station_id}}>{{station}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <label class="control-label col-sm-2" for="destination">To:</label>
+        <div class="col-md-4 col-md-offset-1">
+            <select class="form-control" id="destination" name="destination">
+                {% for station in all_stations %}
+                    <option value={{station.station_id}}>{{station}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <label class="control-label col-sm-1">Date:</label>
+        <div class="col-md-4 col-md-offset-1">
+            {% include 'turk/form-template.html' %}
+        </div>
+    </div>
+
+    <p class="form-group col-md-4 col-md-offset-4">Please enter the date in the format of: yyyy-mm-dd</p>
+
+    <div class="form-group col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+
+</form>
+
+
+
+    <!--Show avaliable Train-->
+
+<div class="form-group col-md-4 col-md-offset-4">
+    <h3 class="text-center"> Available Trains </h3>
+    {% if all_stops %}
+    <ul class="list-group">
+        {% for stop in all_stops %}
+            <li class="list-group-item text-center"><a href = "{% url 'turk:reservation' stop.stop_id stop.train.train_id segment_id destination_station_id date %}">{{stop.train}} at {{stop.time_in}}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h4 class="list-group-item text-center"> No available trains for this day </h4>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

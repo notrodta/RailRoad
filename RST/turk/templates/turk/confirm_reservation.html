@@ -1,0 +1,21 @@
+{% extends 'turk/header.html' %}
+
+{% block body %}
+    <div class="page-header">
+        <h1 class="text-center"> Your Reservation has been successfully Created </h1>
+    </div>
+
+{% if reservation_id %}
+    <div class="form-group col-md-4 col-md-offset-4">
+        <p class="text-primary text-center"><small>Please record down your passenger id and reservation id. It will be needed if you want to cancel or rebook your trip</small></p>
+        <h3 class="text-center">This is your Ticket Info</h3>
+        <h5 class="text-center"> Your unique passenger ID: {{passenger_id}}</h5>
+        <h5 class="text-center"> Your unique reservation ID: {{reservation_id}}</h5>
+        <h5 class="text-center"> Train Time: {{stop.time_in}}</h5>
+        <h5 class="text-center"> Origin Station: {{trip.trip_start}}</h5>
+        <h5 class="text-center"> Destination Station: {{trip.trip_end}}</h5>
+        <h5 class="text-center"> Fare: {{trip.fare}}</h5>
+        <h5 class="text-center"> Date: {{trip.trip_date}}</h5>
+    </div>
+{% endif %}
+{% endblock %}
